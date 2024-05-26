@@ -50,7 +50,8 @@ export const getAllPosts = async(req, res)=>{
     try{
         const orderRequest = req.query;
         const posts = await postService.getAllPosts(orderRequest);
-        res.json({message: "Get all published posts", data: posts})
+        res.set('Cache-Control', 'public, max-age=10');
+        res.json({message: "Get all published posts, cached data", data: posts})
     }
     catch(error){
         res.status(500).json({message: error.message})
